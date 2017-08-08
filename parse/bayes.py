@@ -18,16 +18,7 @@ import json
 
 WORD_MAX = 15000
 WORD_MIN = 500
-
-DATA_PATH = "../real_data/"
-#CLIENT_DATA_PATH = DATA_PATH + 'client/'
-#RESPONSE_DATA_PATH = DATA_PATH + 'response/'
-CLIENT_DATA_PATH = DATA_PATH + 'new_cli/'
-RESPONSE_DATA_PATH = DATA_PATH + 'new_res/'
-
-
-client_list = os.listdir( CLIENT_DATA_PATH )
-# file = open(DATA_PATH+'nng_jkb.txt', 'w', encoding='utf-8')
+SCORE_NORMALIZER = 100000
 
 word_dict = {}
 document_dict = {}
@@ -106,16 +97,17 @@ for idx in before_bayes:
     for _,comb in enumerate(group):
         comb1 = comb[0]
         comb2 = comb[1]
+        algorithm =  (new_word_dict[comb1] + new_word_dict[comb2])*idf(comb1)*idf(comb2))/SCORE_NORMALIZER
         if not comb1 in word_score:
             word_score[comb1] = {}
         if not comb2 in word_score:
             word_score[comb2] = {}
         if not comb2 in word_score[comb1]:
-            word_score[comb1][comb2] = (new_word_dict[comb1] + new_word_dict[comb2])*idf(comb1)*idf(comb2)
+            word_score[comb1][comb2] = algorithm
 #            word_score[comb1][comb2] = (1)/(WORD_MAX*2)
         else :
             try:
-                word_score[comb1][comb2] += (new_word_dict[comb1] + new_word_dict[comb2])*idf(comb1)*idf(comb2)
+                word_score[comb1][comb2] += algorithm
 #                word_score[comb1][comb2] += (1)/(WORD_MAX*2)
             except:
                 print(comb1)
@@ -124,10 +116,10 @@ for idx in before_bayes:
                 print (word_score[comb1][comb2])
         
         if not comb1 in word_score[comb2] :
-            word_score[comb2][comb1] = (new_word_dict[comb1] + new_word_dict[comb2])*idf(comb1)*idf(comb2)
+            word_score[comb2][comb1] = algorithm
 #            word_score[comb2][comb1] = (1)/(WORD_MAX*2)
         else :
-            word_score[comb2][comb1] += (new_word_dict[comb1] + new_word_dict[comb2])*idf(comb1)*idf(comb2)
+            word_score[comb2][comb1] += algorithm
     print ("count: %d"%count)
     count +=1
     if count %1000 == 0:
