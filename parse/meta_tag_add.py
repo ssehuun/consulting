@@ -20,14 +20,16 @@ WORD_MAX = 15000
 WORD_MIN = 500
 TEST_DOC = 20
 
-DATA_PATH = "../real_data/"
-#CLIENT_DATA_PATH = DATA_PATH + 'client/'
-#RESPONSE_DATA_PATH = DATA_PATH + 'response/'
-CLIENT_DATA_PATH = DATA_PATH + 'new_cli/'
-RESPONSE_DATA_PATH = DATA_PATH + 'new_res/'
 
+before_bayes = {}
 
-before_bayes = []
+word_dict = {}
+document_dict = {}
+raw_document = []
+
+with open('word_dic','rb') as handle:
+   #from now jinsoo do it
+
 with open('before_bayes', 'rb') as handle:
    before_bayes= pickle.load(handle)
 word_score = {}
