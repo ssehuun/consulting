@@ -14,6 +14,7 @@ import math
 from collections import Counter
 import itertools
 import json
+from functools import reduce
 
 
 WORD_MAX = 15000
