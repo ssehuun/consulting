@@ -93,7 +93,7 @@ for idx in before_bayes:
     for _,comb in enumerate(group):
         comb1 = comb[0]
         comb2 = comb[1]
-        algorithm =  (new_word_dict[comb1] + new_word_dict[comb2])*idf(comb1)*idf(comb2))/SCORE_NORMALIZER
+        algorithm =  ((new_word_dict[comb1] + new_word_dict[comb2])*idf(comb1)*idf(comb2))/SCORE_NORMALIZER
         if not comb1 in word_score:
             word_score[comb1] = {}
         if not comb2 in word_score:
