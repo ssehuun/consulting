@@ -184,6 +184,7 @@ for dir_ in call_list:
             nominalized_document.append(nominalized_sentence)
             raw_document.append(raw_sentence)
             doc_idx += 1
+            print("doc #%d done"%(doc_idx))
 print("Preprocessing Done")                           
                                     
 print ("Find Useless Words")
