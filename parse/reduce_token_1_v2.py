@@ -29,7 +29,7 @@ call_list = data_helpers.load_filelist(DATA_ROOT_PATH)
 
 print("Text Processing")
 for dir_ in call_list:
-    for call_title in call_list[dir_]
+    for call_title in call_list[dir_]:
         with open(DATA_ROOT_PATH+dir_+'/'+call_title, 'r', encoding="utf-8") as cli:
 
             nominalized_document = []
