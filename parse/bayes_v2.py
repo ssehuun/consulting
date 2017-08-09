@@ -44,9 +44,8 @@ calculator_min = (sorted(word_dict.items(),key= operator.itemgetter(1), reverse=
 calculator_freq_min = (sorted(word_dict.items(),key= operator.itemgetter(1), reverse=True))[int(dic_len*WORD_FREQ_MIN)][1]
 calculator_freq_max = (sorted(word_dict.items(),key= operator.itemgetter(1), reverse=True))[int(dic_len*WORD_FREQ_MAX)][1]
 for doc_idx in document_dict:
-    whole_sentence = document_dict[doc_idx]
     tokens = []
-    pre_tokens = whole_sentence.split(" ")
+    pre_tokens = document_dict[doc_idx]
     for token in pre_tokens:
         token = token.replace("\n", "")
         token = token.strip()
