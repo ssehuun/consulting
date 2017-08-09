@@ -62,3 +62,10 @@ pickling = document_dict
 with open('reduced_document_dict', 'wb') as handle:
     pickle.dump(pickling, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
+        
+for word in useless_wordlist:
+    try :
+        del word_frequency[word]
+    except :
+        # print( "KEY ERROR in removing '%s' from word frequency dict" %(word) )
+        continue
