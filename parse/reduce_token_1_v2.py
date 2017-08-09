@@ -38,7 +38,8 @@ for dir_ in call_list:
             for sentence in cli:
                 raw_document.append(sentence.replace("\n",""))
                 sentence = data_helpers.text_preprocessing(sentence)
-                words = konply.tag.Mecab().pos(sentence)
+                # words = konlpy.tag.Mecab().nouns(sentence)
+                words = konlpy.tag.Mecab().pos(sentence)
                                     
                 splits = [real for real in sentence.split(' ') if real]
 
