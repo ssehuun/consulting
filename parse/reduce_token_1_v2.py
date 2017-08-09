@@ -21,8 +21,8 @@ TOPIC_NUM =5
 
 word_frequency = {}
 document_dict = {}
-nominalized_document = []
-raw_document = []
+nominalized_document_list = []
+raw_document_list = []
 doc_idx = 0
 
 call_list = data_helpers.load_filelist(DATA_ROOT_PATH)
@@ -32,11 +32,11 @@ for dir_ in call_list:
     for call_title in call_list[dir_]
         with open(DATA_ROOT_PATH+dir_+'/'+call_title, 'r', encoding="utf-8") as cli:
 
-            nominalized_sentence = []
-            raw_sentence = []
+            nominalized_document = []
+            raw_document = []
 
             for sentence in cli:
-                raw_sentence.append(sentence.replace("\n","")
+                raw_document.append(sentence.replace("\n","")
                 sentence = data_helpers.text_preprocessing(sentence)
                 words = konply.tag.Mecab().pos(sentence)
                                     
@@ -176,13 +176,13 @@ for dir_ in call_list:
                             word_frequency[word[0]] = 1
                     sent += ' '
 
-                nominalized_sentence.append(sent)
-            if(len(nominalized_sentence) == 0 ):
+                nominalized_document.append(sent)
+            if(len(nominalized_document) == 0 ):
                 print( "ERROR at %d"%(doc_idx) )
                 sys.exit()
-            document_dict[doc_idx] = nominalized_sentence
-            nominalized_document.append(nominalized_sentence)
-            raw_document.append(raw_sentence)
+            document_dict[doc_idx] = nominalized_document
+            nominalized_document_list.append(nominalized_document)
+            raw_document_list.append(raw_document)
             doc_idx += 1
             print("doc #%d done"%(doc_idx))
 print("Preprocessing Done")                           
@@ -220,6 +220,6 @@ with open('delete_list', 'wb') as handle:
 with open('word_dic', 'wb') as handle:
     pickle.dump(word_frequency, handle, protocol=pickle.HIGHEST_PROTOCOL)
 with open('reduced_whole_document', 'wb') as handle:
-    pickle.dump(nominalized_document, handle, protocol=pickle.HIGHEST_PROTOCOL)
+    pickle.dump(nominalized_document_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
 with open('raw_whole_document', 'wb') as handle:
-    pickle.dump(raw_document, handle, protocol=pickle.HIGHEST_PROTOCOL)
+    pickle.dump(raw_document_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
