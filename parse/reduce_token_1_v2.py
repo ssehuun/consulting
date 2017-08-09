@@ -21,7 +21,7 @@ TOPIC_NUM =5
 
 word_frequency = {}
 document_dict = {}
-nominalized_document_list = []
+#nominalized_document_list = []
 raw_document_list = []
 doc_idx = 0
 
@@ -181,7 +181,7 @@ for dir_ in call_list:
                 print( "ERROR at %d"%(doc_idx) )
                 sys.exit()
             document_dict[doc_idx] = nominalized_document
-            nominalized_document_list.append(nominalized_document)
+            #nominalized_document_list.append(nominalized_document)
             raw_document_list.append(raw_document)
             doc_idx += 1
             print("doc #%d done"%(doc_idx))
@@ -220,6 +220,6 @@ with open('delete_list', 'wb') as handle:
 with open('word_dic', 'wb') as handle:
     pickle.dump(word_frequency, handle, protocol=pickle.HIGHEST_PROTOCOL)
 with open('reduced_whole_document', 'wb') as handle:
-    pickle.dump(nominalized_document_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
+    pickle.dump(document_dict, handle, protocol=pickle.HIGHEST_PROTOCOL)
 with open('raw_whole_document', 'wb') as handle:
     pickle.dump(raw_document_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
