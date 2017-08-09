@@ -70,7 +70,7 @@ with open('idf_dic', 'rb') as handle:
 new_word_dict = copy.deepcopy(word_dict)
 for word in word_dict:
     if word_dict[word] >calculator_freq_min:
-        new_word_dict[words] = calculator_freq_min
+        new_word_dict[word] = calculator_freq_min
     if word_dict[word] > calculator_freq_max:
         new_word_dict[word] = calculator_freq_min/4
 
