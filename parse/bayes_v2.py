@@ -27,9 +27,6 @@ with open('word_dic', 'rb') as handle:
 with open('reduced_document_dict','rb') as handle:
     document_dict = pickle.load(handle)
 
-# print( word_dict )
-
-
 
 before_bayes = {}
 
@@ -46,8 +43,8 @@ print((sorted(word_dict.items(),key= operator.itemgetter(1), reverse=True))[int(
 calculator_min = (sorted(word_dict.items(),key= operator.itemgetter(1), reverse=True))[int(dic_len*WORD_MIN)][1]
 calculator_freq_min = (sorted(word_dict.items(),key= operator.itemgetter(1), reverse=True))[int(dic_len*WORD_FREQ_MIN)][1]
 calculator_freq_max = (sorted(word_dict.items(),key= operator.itemgetter(1), reverse=True))[int(dic_len*WORD_FREQ_MAX)][1]
-for document in document_dict:
-    whole_sentence = document_dict[document]
+for doc_idx in document_dict:
+    whole_sentence = document_dict[doc_idx]
     tokens = []
     pre_tokens = whole_sentence.split(" ")
     for token in pre_tokens:
@@ -59,22 +56,23 @@ for document in document_dict:
         except:
             continue
 
-    before_bayes[document] = tokens
+    before_bayes[doc_idx] = tokens
 
-pickling = before_bayes
-with open('before_bayes', 'wb') as handle:
-    pickle.dump(pickling, handle, protocol=pickle.HIGHEST_PROTOCOL)
+with open('before_bayes_v2', 'wb') as handle:
+    pickle.dump(before_bayes, handle, protocol=pickle.HIGHEST_PROTOCOL)
+    
 with open('idf_dic', 'rb') as handle:
    idf_dic= pickle.load(handle)
+
 #print (before_bayes[0][1])
 # word weight = word_dict[word]/WORD_MAX
 #SIMILAR_TWEETS = before_bayes[]...
 new_word_dict = copy.deepcopy(word_dict)
-for words in word_dict:
-    if word_dict[words] >calculator_freq_min:
+for word in word_dict:
+    if word_dict[word] >calculator_freq_min:
         new_word_dict[words] = calculator_freq_min
-    if word_dict[words] > calculator_freq_max:
-        new_word_dict[words] = calculator_freq_min/4
+    if word_dict[word] > calculator_freq_max:
+        new_word_dict[word] = calculator_freq_min/4
 
 after_bayes = []
 word_score = {}
@@ -121,6 +119,5 @@ for idx in before_bayes:
     print ("count: %d"%count)
     count +=1
     if count %1000 == 0:
-        pickling = word_score
-        with open('bayes', 'wb') as handle:
-            pickle.dump(pickling, handle, protocol=pickle.HIGHEST_PROTOCOL)
+        with open('bayes_v2', 'wb') as handle:
+            pickle.dump(word_score, handle, protocol=pickle.HIGHEST_PROTOCOL)
