@@ -15,7 +15,7 @@ from collections import Counter
 import data_helpers
 import sys
 
-DATA_ROOT_PATH = "/share/20170807"
+DATA_ROOT_PATH = "/share/20170807/"
 MAX_SENTENCE_LENGTH = 160
 TOPIC_NUM =5
 
@@ -36,7 +36,7 @@ for dir_ in call_list:
             raw_document = []
 
             for sentence in cli:
-                raw_document.append(sentence.replace("\n","")
+                raw_document.append(sentence.replace("\n",""))
                 sentence = data_helpers.text_preprocessing(sentence)
                 words = konply.tag.Mecab().pos(sentence)
                                     
