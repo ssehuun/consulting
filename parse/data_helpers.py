@@ -19,6 +19,8 @@ import sys
 STOP_LIST_FILENAME = "stop_list.txt"
 INSPECTION_STOP_LIST_FILENAME = "stop_list_for_inspection.txt"
 
+stop_list = open(STOP_LIST_FILENAME, "r", encoding='utf-8')
+inspection_stop_list = open(INSPECTION_STOP_LIST_FILENAME, "r", encoding = 'utf-8')
 
 
 def load_filelist(root_path):
@@ -93,14 +95,13 @@ def remove_stop_words (user_input):
     
     
 def load_stoplist():
-    stop_list = open(STOP_LIST_FILENAME, 'r', encoding='utf-8')
-    inspection_stop_list = open(INSPECTION_STOP_LIST_FILENAME, 'r', encoding='utf-8')
-
     ret = {"general": [], "inspection": []}
     for stop_word in inspection_stop_list:
-        ret["inspection"].append(stop_word)
+        ret["inspection"].append(stop_word.replace("\n",""))
     for stop_word in stop_list:
-        ret["general"].append(stop_word)   
+        ret["general"].append(stop_word.replace("\n",""))
+    ret["general"] = list(set(ret["general"]))
+    ret["inspection"] = list(set(ret["inspection"]))
     return ret
     
     
