@@ -74,8 +74,23 @@ def text_preprocessing(sentence):
     sentence = re.sub(r"'","", sentence) 
     sentence = re.sub(r"\ +"," ", sentence) 
     sentence = re.sub(r"\t+","", sentence)
+    sentence = re.sub(r"[일|이|삼|사|오|육|칠|팔|구|백|천|만][원]","",sentence)
+    sentence = re.sub(r"[일|이|삼|사|오|육|칠|팔|구|십|백][만|천|백|십]", "",sentence)
+#   sentence = re.sub(r"
+#                     일월년십
+#                     한두세네다섯여섯일곱여덟아홉열사
+#                     월화수목금요일
+                                          
     sentence = sentence.strip()
     return sentence
+  
+def remove_stop_words (user_input):
+    #이야기, 기간얼마이용포함적용부분얘기이번발생
+    
+    stop_words = []
+    removed_words =  [ w for w in user_input if w not in stop_words]
+    return " ".join(removed_words)
+    
     
 def load_stoplist():
     stop_list = open(STOP_LIST_FILENAME, 'r', encoding='utf-8')
