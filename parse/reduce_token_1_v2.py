@@ -17,6 +17,7 @@ import sys
 
 DATA_ROOT_PATH = "/share/20170807/"
 MAX_SENTENCE_LENGTH = 160
+TEST_NUM =500000
 TOPIC_NUM =5
 
 word_frequency = {}
@@ -30,6 +31,9 @@ call_list = data_helpers.load_filelist(DATA_ROOT_PATH)
 print("Text Processing")
 for dir_ in call_list:
     for call_title in call_list[dir_]:
+        doc_count +=1
+        if TEST_NUM < doc_count:
+            continue
         with open(DATA_ROOT_PATH+dir_+'/'+call_title, 'r', encoding="utf-8") as cli:
 
             nominalized_document = []
@@ -87,12 +91,12 @@ for dir_ in call_list:
                             if type(word) == int:
                                 continue
                             # 항의
-                            if (previous == '.'):
-                                if ('JKB' in word[1] or 'JKG' in word[1] or 'VCP' in word[1]):
-                                    continue
-                                elif( '.' in word[0] ):
-                                    batch.remove(word)
-                                    loop_flag = True
+#                            if (previous == '.'):
+#                                if ('JKB' in word[1] or 'JKG' in word[1] or 'VCP' in word[1]):
+#                                    continue
+#                                elif( '.' in word[0] ):
+#                                    batch.remove(word)
+#                                    loop_flag = True
                             if not( 'NNG' in word[1] or 'NNP' in word[1] ):
                                 try :
                                     batch.remove(word)
@@ -196,6 +200,8 @@ for word in word_frequency:
     if( len(word) <= 1):
         useless_wordlist.append(word)
 useless_wordlist = list(set(useless_wordlist))
+stop_lists = data_helpers.load_stoplist()
+useless_wordlist += stop_lists['general']
 
 
 #document_dict = {k:v for k,v in document_dict.items() if v!= []}
