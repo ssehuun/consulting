@@ -243,7 +243,7 @@ for tokens in after_bayes:
             tag_dic[token[0]] = 1
         else:
             tag_dic[token[0]] += 1
-            
+print (sorted(tag_dic.items(), key = operator.itemgetter(1), reverse = True)[:30])
 with open('meta_tag_output', 'wb') as handle:
     pickle.dump(output, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
