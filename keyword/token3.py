@@ -21,6 +21,9 @@ useless_wordlist = []
 with open('word_dic', 'rb') as handle:
    word_frequency= pickle.load(handle)
    
+with open('delete_list', 'rb') as handle:
+   word_frequency= pickle.load(handle)
+   
 with open('document_dict1_revised', 'rb') as handle:
    document_dict= pickle.load(handle)
 with open('document_dict2_revised', 'rb') as handle:
@@ -42,5 +45,16 @@ for word in useless_wordlist:
         # print( "KEY ERROR in removing '%s' from word frequency dict" %(word) )
         continue
 
+word_index = 0
+word_indexing = {}
+for word in word_frequency:
+   word_indexing[word] = word_index
+   word_index += 1
+   
+      
+
+with open('word_indexing', 'wb') as handle:
+    pickle.dump(word_indexing, handle, protocol=pickle.HIGHEST_PROTOCOL)
+      
 with open('word_dic', 'wb') as handle:
     pickle.dump(word_frequency, handle, protocol=pickle.HIGHEST_PROTOCOL)
