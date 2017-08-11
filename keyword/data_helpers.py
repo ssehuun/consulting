@@ -11,7 +11,6 @@ from gensim import corpora, models
 import gensim
 import math
 from collections import Counter
-import data_helpers
 import sys
 
 STOP_LIST_FILENAME = "stop_list.txt"
@@ -22,13 +21,24 @@ inspection_stop_list = open(INSPECTION_STOP_LIST_FILENAME, "r", encoding = 'utf-
 
 
 def load_filelist(root_path):
-    data_dir_list = os.listdir( root_path )
-    file_list = {}
     
-    for dir_ in data_dir_list:
-        file_list[dir_] = os.listdir( root_path + dir )
-    return file_list
+    temp = os.listdir(root_path)
+    dates = []
     
+    for dir_ in temp:
+        if('2017' in dir_):
+            dates.append(dir_)
+    filelist={}
+    
+    for date in dates:
+        dirs = os.listdir( root_path+'/'+date)
+        for dir_ in dirs:
+            files = os.listdir( root_path+'/'+date+'/'+dir_ )
+            for file_ in files:
+                filelist[file_] = os.path.abspath( root_path +'/'+date+'/'+dir_+'/'+file_ )
+                
+    return filelist
+                                
 
 def n_containing(word, whole_document):
     return sum(1 for doc in whole_document if word in doc )
@@ -76,16 +86,22 @@ def text_preprocessing(sentence):
     sentence = re.sub(r"\t+","", sentence)
     sentence = re.sub(r"[일|이|삼|사|오|육|칠|팔|구|백|천|만][원]","",sentence)
     sentence = re.sub(r"[일|이|삼|사|오|육|칠|팔|구|십|백][만|천|백|십]", "",sentence)
-#   sentence = re.sub(r"
-#                     일월년십
-#                     한두세네다섯여섯일곱여덟아홉열사
-#                     월화수목금요일
+    sentence = re.sub(r"\t+","", sentence)
+    sentence = re.sub(r"\t+","", sentence)
+    sentence = re.sub(r"\t+","", sentence)
+    sentence = re.sub(r"\t+","", sentence)
+    sentence = re.sub(r"\t+","", sentence)
+    sentence = re.sub(r"[한|두|세|네|다섯|여섯|일곱|여덟|아홉|열][시]", "", sentence)
+    sentence = re.sub(r"[월|화|수|목|금][요일]", "", sentence) 
+    sentence = re.sub(r"    "," ", sentence) 
+    sentence = re.sub(r"   "," ", sentence)                   
+    sentence = re.sub(r"  "," ", sentence)                 
                                           
     sentence = sentence.strip()
     return sentence
   
 def remove_stop_words (user_input):
-    #이야기, 기간얼마이용포함적용부분얘기이번발생
+    #def for 불용어 제거(추후 사용예정)
     
     stop_words = []
     removed_words =  [ w for w in user_input if w not in stop_words]
