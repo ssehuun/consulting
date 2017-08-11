@@ -28,10 +28,13 @@ with open('delete_list', 'rb') as handle:
 for doc_idx in document_dict:
     revised_document = []
     for raw_word in document_dict[doc_idx]:
-        if( raw_word in useless_wordlist ):
-            continue
-        else:
-            revised_document.append(raw_word)
+        raw_word = raw_word.strip()
+        words = raw_word.split(" ")
+        for word in words:
+            if( word in useless_wordlist ):
+                continue
+            else:
+                revised_document.append(word)
     if( len(revised_document) <= 0 ):
         print("ERROR at %d"%(doc_idx))
         sys.exit()
