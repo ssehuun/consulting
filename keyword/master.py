@@ -5,13 +5,13 @@ import multiprocessing
 
 cwd = os.getcwd()
 def command1 ():
-    result = subprocess.check_output('python3 reduce_token_1.py')
+    result = subprocess.check_output('python token1.py')
 def command2 (i):
-    result = subprocess.check_output('python3 ~/SK/parse/reduce_token_2_v2.py ~/SK/parse/document_dict' + str(i), shell=True)
+    result = subprocess.check_output('python token2.py ~/neuro/keyword/pickle/document_dict' + str(i), shell=True)
     print ("here")
 def command3():
-    result = subprocess.check_output('python3 reduce_token_3.py')
-    result = subprocess.check_output('python3 make_tfidf_dic.py')
+    result = subprocess.check_output('python token3.py')
+    result = subprocess.check_output('python tfidf.py')
 
 #print("1st")
 #gevent.joinall([
