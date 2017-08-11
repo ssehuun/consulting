@@ -120,3 +120,6 @@ for idx in before_bayes:
     if count %1000 == 0:
         with open('bayes_v2', 'wb') as handle:
             pickle.dump(word_score, handle, protocol=pickle.HIGHEST_PROTOCOL)
+            
+with open('bayes_v2', 'wb') as handle:
+    pickle.dump(word_score, handle, protocol=pickle.HIGHEST_PROTOCOL)        
