@@ -183,15 +183,15 @@ def TextProcessing(call_list, start_idx, batch_num):
             doc_idx += 1
             #print("doc #%d done"%(doc_idx))
     print( "Preprocessing Done #%d"%(batch_num) )
-    with open('document_dict%d'%(batch_num), 'wb') as handle:
+    with open(PICKLE_FILE_PATH+'document_dict%d'%(batch_num), 'wb') as handle:
         pickle.dump(document_dict, handle, protocol=pickle.HIGHEST_PROTOCOL)
-    with open('delete_list%d'%(batch_num), 'wb') as handle:
+    with open(PICKLE_FILE_PATH+'delete_list%d'%(batch_num), 'wb') as handle:
         pickle.dump(useless_wordlist, handle, protocol=pickle.HIGHEST_PROTOCOL)
-    with open('word_dic%d'%(batch_num), 'wb') as handle:
+    with open(PICKLE_FILE_PATH+'word_dic%d'%(batch_num), 'wb') as handle:
         pickle.dump(word_frequency, handle, protocol=pickle.HIGHEST_PROTOCOL)
-    with open('nominalized_document_dict%d'%(batch_num), 'wb') as handle:
+    with open(PICKLE_FILE_PATH+'nominalized_document_dict%d'%(batch_num), 'wb') as handle:
         pickle.dump(document_dict, handle, protocol=pickle.HIGHEST_PROTOCOL)
-    with open('raw_document_dict%d'%(batch_num), 'wb') as handle:
+    with open(PICKLE_FILE_PATH+'raw_document_dict%d'%(batch_num), 'wb') as handle:
         pickle.dump(raw_document_dict, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
  
