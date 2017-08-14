@@ -18,28 +18,17 @@ batch_num = ''
 if len (sys.argv) ==1:
     exit(1)
 else:
-    batch_num = sys.argv[1]
+    total_batch = int(sys.argv[1])
+    batch_num = int(sys.argv[2])
 
 total_call = data_helpers.load_filelist(DATA_ROOT_PATH)
 total_call_num = len(total_call)
-batch_size = int(total_call_num/4)
+batch_size = int(total_call_num/total_batch)
 
-batch1, batch2, batch3, batch4 = data_helpers.split_docs_into_four(total_call, total_doc_num)
+batches = data_helpers.split_docs(total_call, total_call_num, total_batch)
 
-start_idx = ''
-call_list = ''
-if( batch_num == "1" ):
-    call_list = batch1
-    start_idx = 0
-elif( batch_num == "2" ):
-    call_list = batch2
-    start_idx = batch_size
-elif( batch_num == "3" ):
-    call_list = batch3
-    start_idx = batch_size*2
-elif( batch_num == "4" ):
-    call_list = batch4
-    start_idx = batch_size*3
+start_idx = batch_size*batch_num
+call_list = batches['batch%d'%(batch_num)]
 
 word_frequency = {}
 nominalized_document_dict = {}
