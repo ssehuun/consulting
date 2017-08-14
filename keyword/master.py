@@ -2,6 +2,10 @@ import os
 import subprocess
 import gevent
 import multiprocessing
+import data_helpers
+import tokenizing
+
+DATA_ROOT_PATH = '/share/'
 
 cwd = os.getcwd()
 def command1 ():
@@ -18,10 +22,25 @@ def command3():
 #        gevent.spawn(command1())
 #        ])
 
-print("2nd")
-pool = multiprocessing.Pool(processes=4)
 
-pool.map(command2, range(1,5))
+
+call_list = data_helpers.load_filelist(DATA_ROOT_PATH)
+total_doc_num = len(call_list)
+batch1, batch2, batch3, batch4 = data_helpers.split_docs_into_four(call_list, total_doc_num)
+
+tokenizing.TextProcessing(batch1, 0, 1)
+
+
+#print("2nd")
+#pool = multiprocessing.Pool(processes=4)
+
+#pool.map(command2, range(1,5))
+
+
+
+
+
+
 #threads = [gevent.spawn(command2,i) for i in range(1,5)]
 #gevent.joinall(threads)
 
