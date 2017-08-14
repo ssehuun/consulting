@@ -8,6 +8,7 @@ from collections import Counter
 import sys
 import data_helpers
 
+PICKLE_DATA_PATH = './pickle/'
 
 document_dict = {}
 revised_document_dict = {}
@@ -19,9 +20,9 @@ if len (sys.argv) ==1:
 else:
     doc_name = sys.argv[1]
 
-with open(doc_name, 'rb') as handle:
+with open(PICKLE_DATA_PATH+doc_name, 'rb') as handle:
    document_dict= pickle.load(handle)
-with open('delete_list', 'rb') as handle:
+with open(PICKLE_DATA_PATH+'delete_list', 'rb') as handle:
    useless_wordlist= pickle.load(handle)
           
 
@@ -43,7 +44,7 @@ for doc_idx in document_dict:
     #print ("doc #%d processed"%(doc_idx))
 
     
-with open(doc_name + '_revised', 'wb') as handle:
+with open(PICKLE_DATA_PATH+doc_name + '_revised', 'wb') as handle:
     pickle.dump(revised_document_dict, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 print ("'%s' done"%(doc_name) )
