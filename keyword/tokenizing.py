@@ -10,7 +10,7 @@ from collections import Counter
 import data_helpers
 import sys
 
-#DATA_ROOT_PATH = "/share/"
+PICKLE_FILE_PATH = "./pickle/"
 
 
 #call_list = data_helpers.load_filelist(DATA_ROOT_PATH)
