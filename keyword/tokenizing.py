@@ -78,7 +78,7 @@ for file_name in call_list:
             for i in range(len(word_array)):
                 if type(word_array[i]) == int:
                     delete_int.append(i)
-                    print (word_array)
+#                    print (word_array)
 #                    word_array.remove(word_array[i])
             for i in reversed(delete_int):
                 del word_array[i]
