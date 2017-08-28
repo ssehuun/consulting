@@ -45,7 +45,7 @@ for doc_idx in document_paragraph_topic:
      for par_idx in document_paragraph_topic[doc_idx]:
         for main in topic_bag_1v1:
             if (main in document_paragraph_topic[doc_idx][par_idx]):
-                paragraph_classifier.append(reduced_document_dict_paragraph[doc_idx][par_idx])
+                paragraph_classifier[main].append(reduced_document_dict_paragraph[doc_idx][par_idx])
             
 
     
