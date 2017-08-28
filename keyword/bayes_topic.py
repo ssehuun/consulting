@@ -13,6 +13,7 @@ from collections import Counter
 import itertools
 import json
 
+PICKLE_DATA_PATH = './pickle/'
 
 WORD_MAX = 15000
 WORD_MIN = 500
@@ -22,9 +23,11 @@ word_dict = {}
 document_dict = {}
 # with open('Topic_List', 'rb') as handle:
 #     word_dict = pickle.load(handle)
-with open('word_dic', 'rb') as handle:
+with open(PICKLE_DATA_PATH+'word_dic_user', 'rb') as handle:
     word_dict = pickle.load(handle)
-with open('reduced_document_dict','rb') as handle:
+with open(PICKLE_DATA_PATH+'reduced_document_paragraph2', 'rb') as handle:
+    reduced_document_dict_paragraph = pickle.load(handle)
+with open(PICKLE_DATA_PATH+'paragraph_classifier', 'wb') as handle:
     document_dict = pickle.load(handle)
 
 
@@ -43,9 +46,10 @@ print((sorted(word_dict.items(),key= operator.itemgetter(1), reverse=True))[int(
 calculator_min = (sorted(word_dict.items(),key= operator.itemgetter(1), reverse=True))[int(dic_len*WORD_MIN)][1]
 calculator_freq_min = (sorted(word_dict.items(),key= operator.itemgetter(1), reverse=True))[int(dic_len*WORD_FREQ_MIN)][1]
 calculator_freq_max = (sorted(word_dict.items(),key= operator.itemgetter(1), reverse=True))[int(dic_len*WORD_FREQ_MAX)][1]
-for doc_idx in document_dict:
+
+for doc_idx in range(len(document_dict['포켓'])):
     tokens = []
-    pre_tokens = document_dict[doc_idx]
+    pre_tokens = document_dict['포켓'][doc_idx]
     for token in pre_tokens:
         token = token.replace("\n", "")
         token = token.strip()
@@ -57,8 +61,8 @@ for doc_idx in document_dict:
 
     before_bayes[doc_idx] = tokens
 
-with open('before_bayes_v2', 'wb') as handle:
-    pickle.dump(before_bayes, handle, protocol=pickle.HIGHEST_PROTOCOL)
+#with open('before_bayes_', 'wb') as handle:
+#    pickle.dump(before_bayes, handle, protocol=pickle.HIGHEST_PROTOCOL)
     
 with open('idf_dic', 'rb') as handle:
    idf_dic= pickle.load(handle)
@@ -92,7 +96,7 @@ for idx in before_bayes:
     for _,comb in enumerate(group):
         comb1 = comb[0]
         comb2 = comb[1]
-        algorithm =  ((new_word_dict[comb1] + new_word_dict[comb2])*idf(comb1)*idf(comb2))/SCORE_NORMALIZER
+        algorithm =  (1*idf(comb1)*idf(comb2))/SCORE_NORMALIZER
         if not comb1 in word_score:
             word_score[comb1] = {}
         if not comb2 in word_score:
@@ -118,8 +122,8 @@ for idx in before_bayes:
     print ("count: %d"%count)
     count +=1
     if count %1000 == 0:
-        with open('bayes_v2', 'wb') as handle:
+        with open(PICKLE_DATA_PATH+'bayes_topic', 'wb') as handle:
             pickle.dump(word_score, handle, protocol=pickle.HIGHEST_PROTOCOL)
             
-with open('bayes_v2', 'wb') as handle:
+with open(PICKLE_DATA_PATH+'bayes_topic', 'wb') as handle:
     pickle.dump(word_score, handle, protocol=pickle.HIGHEST_PROTOCOL)  
