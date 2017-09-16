@@ -11,13 +11,6 @@ keyword --> 키워드 추출 관련 코드 (latest)
 https://www.slideshare.net/mobile/taejoonyoo/voc-20151030
 
 
-다음주 월요일 투입
-
-10월 말 발표
-
-business 적으로 clustering
-paragraph 별 처리
-
 전제 : 1 member 는 
 
  1현 프로세스의 모듈화 / 자동화 / 속도 향상
