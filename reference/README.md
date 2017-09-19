@@ -38,3 +38,8 @@ http://sens.tistory.com/445https://bitbucket.org/eunjeon/mecab-ko
 konlpy mecab 심화 (여진수 확인)
 
 https://books.google.co.kr/books?id=cAQrDwAAQBAJ&pg=PA424&lpg=PA424&dq=konlpy+mecab&source=bl&ots=P5JSzegNWt&sig=6uEDgLaodVtx6UqhA7IMX5bKXeM&hl=ko&sa=X&ved=0ahUKEwjYgLS7-K_WAhVHW5QKHfnzCdU4ChDoAQhUMAg#v=onepage&q=konlpy%20mecab&f=false
+
+
+비속어 표준형 변환 알고리즘을 이용한 인터넷 비속어 검출시스템 (서남규확인)
+
+http://pearl.cs.pusan.ac.kr/~wiki/images/3/38/REP0903VULGAR.pdf
