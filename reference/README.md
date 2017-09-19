@@ -43,3 +43,9 @@ https://books.google.co.kr/books?id=cAQrDwAAQBAJ&pg=PA424&lpg=PA424&dq=konlpy+me
 비속어 표준형 변환 알고리즘을 이용한 인터넷 비속어 검출시스템 (서남규확인)
 
 http://pearl.cs.pusan.ac.kr/~wiki/images/3/38/REP0903VULGAR.pdf
+
+
+스팸필터링최근논문(곽태민확인)
+http://ieeexplore.ieee.org/abstract/document/7820655/
+http://ieeexplore.ieee.org/abstract/document/7474194/
+
