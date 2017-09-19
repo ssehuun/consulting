@@ -68,5 +68,7 @@ https://arxiv.org/pdf/1602.03483.pdf
 https://arxiv.org/pdf/1706.03146.pdf
 https://arxiv.org/pdf/1703.02507.pdf
 
-@ tensorflow Skip-gram github 코드 (여진수리뷰)
+@ tensorflow Skip-gram / fastSent github 코드 (여진수리뷰)
+
 https://github.com/warchildmd/game2vec
+https://github.com/fh295/SentenceRepresentation
