@@ -67,3 +67,6 @@ https://arxiv.org/pdf/1606.04640.pdf
 https://arxiv.org/pdf/1602.03483.pdf
 https://arxiv.org/pdf/1706.03146.pdf
 https://arxiv.org/pdf/1703.02507.pdf
+
+@ tensorflow Skip-gram github 코드 (여진수리뷰)
+https://github.com/warchildmd/game2vec
