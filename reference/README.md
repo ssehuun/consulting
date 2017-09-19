@@ -50,3 +50,10 @@ http://pearl.cs.pusan.ac.kr/~wiki/images/3/38/REP0903VULGAR.pdf
 http://ieeexplore.ieee.org/abstract/document/7820655/
 http://ieeexplore.ieee.org/abstract/document/7474194/
 http://www.esp.uem.es/~jmgomez/papers/hais16.pdf
+
+fastSent / Skip-gram 최신 논문 (이대섭, 여진수, 곽태민 리뷰)
+
+https://arxiv.org/pdf/1606.04640.pdf
+https://arxiv.org/pdf/1602.03483.pdf
+https://arxiv.org/pdf/1706.03146.pdf
+https://arxiv.org/pdf/1703.02507.pdf
