@@ -46,6 +46,7 @@ http://pearl.cs.pusan.ac.kr/~wiki/images/3/38/REP0903VULGAR.pdf
 
 
 스팸필터링최근논문(곽태민확인)
+
 http://ieeexplore.ieee.org/abstract/document/7820655/
 http://ieeexplore.ieee.org/abstract/document/7474194/
-
+http://www.esp.uem.es/~jmgomez/papers/hais16.pdf
