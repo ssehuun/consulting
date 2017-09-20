@@ -59,6 +59,8 @@ http://www.pyimagesearch.com/2014/05/26/opencv-python-k-means-color-clustering/
 
 http://charlesleifer.com/blog/using-python-and-k-means-to-find-the-dominant-colors-in-images/
 
+https://stackoverflow.com/questions/28344660/how-to-identify-cluster-labels-in-kmeans-scikit-learn
+
 
 
 
