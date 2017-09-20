@@ -53,6 +53,13 @@ https://shuuki4.wordpress.com/2016/01/27/word2vec-%EA%B4%80%EB%A0%A8-%EC%9D%B4%E
 
 http://hamait.tistory.com/740
 
+이미지 데이터 k-means 적용한 코드 (소스 2)
+
+http://www.pyimagesearch.com/2014/05/26/opencv-python-k-means-color-clustering/
+
+http://charlesleifer.com/blog/using-python-and-k-means-to-find-the-dominant-colors-in-images/
+
+
 
 
 @ 논문
