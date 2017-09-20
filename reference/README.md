@@ -72,3 +72,12 @@ https://arxiv.org/pdf/1703.02507.pdf
 
 https://github.com/warchildmd/game2vec
 https://github.com/fh295/SentenceRepresentation
+
+
+@ pytorch 관련 자료
+https://github.com/GunhoChoi/PyTorch-FastCampus : 패스트 캠퍼스 기본 (참고용)
+https://github.com/joshemorris/word_embedding_tutorial/blob/master/ngram.py : pytorch로 구현한 ngram
+https://github.com/joshemorris/word_embedding_tutorial/blob/master/cbow.py : pytorch로 구현한 cbow
+
+https://github.com/fh295/SentenceRepresentation코
+https://github.com/fh295/SentenceRepresentation
