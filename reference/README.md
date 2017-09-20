@@ -47,6 +47,13 @@ https://books.google.co.kr/books?id=cAQrDwAAQBAJ&pg=PA424&lpg=PA424&dq=konlpy+me
 https://shuuki4.wordpress.com/2016/01/27/word2vec-%EA%B4%80%EB%A0%A8-%EC%9D%B4%EB%A1%A0-%EC%A0%95%EB%A6%AC/
 
 
+@ clustering 관련 자료
+
+- k-means 알고리즘 코드 
+
+http://hamait.tistory.com/740
+
+
 
 @ 논문
 
@@ -79,5 +86,4 @@ https://github.com/GunhoChoi/PyTorch-FastCampus : 패스트 캠퍼스 기본 (�
 https://github.com/joshemorris/word_embedding_tutorial/blob/master/ngram.py : pytorch로 구현한 ngram
 https://github.com/joshemorris/word_embedding_tutorial/blob/master/cbow.py : pytorch로 구현한 cbow
 
-https://github.com/fh295/SentenceRepresentation코
-https://github.com/fh295/SentenceRepresentation
+
