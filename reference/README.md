@@ -33,7 +33,9 @@ konlpy 형태소 분석 모듈 종류(각각 확인해 볼 수 있으면 좋음)
 @ mecab
 -konlpy mecab 개요 (전 인원)
 
-http://sens.tistory.com/445https://bitbucket.org/eunjeon/mecab-ko
+http://sens.tistory.com/445
+
+https://bitbucket.org/eunjeon/mecab-ko
 
 -konlpy mecab 심화 (여진수 확인)
 
