@@ -21,6 +21,29 @@ def spacebar_based_grouping(sentence, spacebar_array):
     return 
 
 
+def mecab_grammar_check(tokenized_grammar):
+    processed_grammar = list(tokenized_grammar)
+    for token in tokenized_grammar:
+        if not ('NNG' in token[1] or 'NNP' in token[1]):
+            processed_grammar.remove(token)
+    return processed_grammar
+
+
+def hannanum_grammar_check(tokenized_grammar):
+    processed_grammar = list(tokenized_grammar)
+    for token in tokenized_grammar:
+        if not('N' in token[1]):
+            processed_grammar.remove(token)
+    return processed_grammar
+
+def twitter_grammar_check(tokenized_grammar):
+    processed_grammar = list(tokenized_grammar)
+    for token in tokenized_grammar:
+        if not ('Noun' in token[1]):
+            processed_grammar.remove(token)
+    return prcessed_grammar
+            
+
 def konlpy_tokenizing(document, mod = 'Mecab'):
     ##DOC FINAL RESULT INITIALIZATION
     tokenized_result = []
@@ -33,19 +56,26 @@ def konlpy_tokenizing(document, mod = 'Mecab'):
         #substitute unnesessary keys 
         sentence = re_substitute(sentence)
         
-        #konlpy korean 'MECAB'
+        #konlpy korean 'Mecab'
         if mod =="Mecab":
             words = konlpy.tag.Mecab(dicpath='/usr/lib/mecab/dic/mecab-ko-dic').pos(sentence)
+            #grammar selection for Mecab
+            words = mecab_grammar_check(words)
         elif mod =="Twitter":
             words = konlpy.tag.Twitter().pos(sentence)
+            #grammar selection for Twitter
+            
         elif mod =="Hannanum":
             words = konlpy.tag.Hannanum().pos(sentence)
+            #grammar selection for Hannanum
+            words = hannanum_grammar_check(words)
         elif mod == "Komoran":
             words = konlpy.tag.Komoran().pos(sentence)
         elif mod == "Kkma":
             words = konlpy.tag.Kkma().pos(sentence)
         
         tokenized_result.append(words)
+        
         
         # spacebar splits (data preparation for customized algorithm)
         spacebar_splits = [z for z in sentence.split(' ') if z]
