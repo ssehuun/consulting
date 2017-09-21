@@ -15,7 +15,7 @@ def re_substitute(sentence):
     sentence = re.sub(r"[0-9]+"," ", sentence)
     return sentence
 
-def konlpy_tokenizing(document, mod = 'MECAB'):
+def konlpy_tokenizing(document, mod = 'Mecab'):
     ##DOC FINAL RESULT INITIALIZATION
     tokenized_result = []
     real_document = []
@@ -28,14 +28,16 @@ def konlpy_tokenizing(document, mod = 'MECAB'):
         sentence = re_substitute(sentence)
         
         #konlpy korean 'MECAB'
-        if mod =="MECAB":
+        if mod =="Mecab":
             words = konlpy.tag.Mecab(dicpath='/usr/lib/mecab/dic/mecab-ko-dic').pos(sentence)
-        elif mod =="TWITTER":
+        elif mod =="Twitter":
             words = konlpy.tag.Twitter().pos(sentence)
         elif mod =="Hannanum":
             words = konlpy.tag.Hannanum().pos(sentence)
         elif mod == "Komoran":
             words = konlpy.tag.Komoran().pos(sentence)
+        elif mod == "Kkma":
+            words = konlpy.tag.Kkma().pos(sentence)
         
         tokenized_result.append(words)
         
@@ -45,10 +47,10 @@ def konlpy_tokenizing(document, mod = 'MECAB'):
     return real_document, tokenized_result, spacebar_splits, word_array 
         
 
-def tokenizing(document_path):
+def tokenizing(document_path, analyzer = "Mecab"):
     print ("tokenizing function")
     with open(document_path, 'r', encoding="utf-8") as doc:
-        real_doc, token, spacebar_splits, word_array= konlpy_tokenizing(doc)
+        real_doc, token, spacebar_splits, word_array= konlpy_tokenizing(doc, analyzer)
     return real_doc, token, spacebar_splits, word_array
     
 
@@ -64,8 +66,17 @@ if __name__ == '__main__':
     print ("sample_data_path : ")
     print (sample_data_path)
     
-    #sample for just one document
-    sample_doc, sample_token, _, _ = tokenizing(sample_data_path + '/' + sample_data[0])
+    #####sample for just one document
+    #sample for Mecab
+    sample_doc, sample_token, _, _ = tokenizing(sample_data_path + '/' + sample_data[0], "Mecab")
+    print ("####sample_doc####")
+    print (sample_doc)
+    print ()
+    print ("####sample_token####")
+    print (sample_token)
+    
+    #sample for Hannannum
+    sample_doc, sample_token, _, _ = tokenizing(sample_data_path + '/' + sample_data[0], "Hannanum")
     print ("####sample_doc####")
     print (sample_doc)
     print ()
