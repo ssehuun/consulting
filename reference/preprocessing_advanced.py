@@ -15,6 +15,12 @@ def re_substitute(sentence):
     sentence = re.sub(r"[0-9]+"," ", sentence)
     return sentence
 
+
+def spacebar_based_grouping(sentence, spacebar_array):
+    group = []
+    return 
+
+
 def konlpy_tokenizing(document, mod = 'Mecab'):
     ##DOC FINAL RESULT INITIALIZATION
     tokenized_result = []
@@ -43,8 +49,8 @@ def konlpy_tokenizing(document, mod = 'Mecab'):
         
         # spacebar splits (data preparation for customized algorithm)
         spacebar_splits = [z for z in sentence.split(' ') if z]
-        word_array = [0]*len(spacebar_splits)
-    return real_document, tokenized_result, spacebar_splits, word_array 
+        spacebar_array = [0]*len(spacebar_splits)
+    return real_document, tokenized_result, spacebar_splits, spacebar_array 
         
 
 def tokenizing(document_path, analyzer = "Mecab"):
