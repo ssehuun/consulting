@@ -53,16 +53,10 @@ def konlpy_tokenizing(document, mod = 'Mecab'):
         #konlpy korean 'Mecab'
         if mod =="Mecab":
             words = konlpy.tag.Mecab(dicpath='/usr/lib/mecab/dic/mecab-ko-dic').pos(sentence)
-            #grammar selection for Mecab
-            #words = mecab_grammar_check(words)
         elif mod =="Twitter":
             words = konlpy.tag.Twitter().pos(sentence)
-            #grammar selection for Twitter
-            #words = twitter_grammar_check(words)
         elif mod =="Hannanum":
             words = konlpy.tag.Hannanum().pos(sentence)
-            #grammar selection for Hannanum
-            #words = hannanum_grammar_check(words)
         elif mod == "Komoran":
             words = konlpy.tag.Komoran().pos(sentence)
         elif mod == "Kkma":
@@ -70,6 +64,8 @@ def konlpy_tokenizing(document, mod = 'Mecab'):
         
         #grammar selection
         words = grammar_check(words, mod)
+        
+        #result append
         tokenized_result.append(words)
         
         
