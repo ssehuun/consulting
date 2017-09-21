@@ -1,5 +1,6 @@
 import konlpy
 import os
+import re
 
 DATA_PATH = 'sample_data'
 
@@ -14,7 +15,7 @@ def re_substitute(sentence):
     sentence = re.sub(r"[0-9]+"," ", sentence)
     return sentence
 
-def mecab_tokenizing(document):
+def konlpy_tokenizing(document, mod = 'MECAB'):
     ##DOC FINAL RESULT INITIALIZATION
     tokenized_result = []
     real_document = []
@@ -27,7 +28,15 @@ def mecab_tokenizing(document):
         sentence = re_substitute(sentence)
         
         #konlpy korean 'MECAB'
-        words = konlpy.tag.Mecab(dicpath='/usr/lib/mecab/dic/mecab-ko-dic').pos(sentence)
+        if mod =="MECAB":
+            words = konlpy.tag.Mecab(dicpath='/usr/lib/mecab/dic/mecab-ko-dic').pos(sentence)
+        elif mod =="TWITTER":
+            words = konlpy.tag.Twitter().pos(sentence)
+        elif mod =="Hannanum":
+            words = konlpy.tag.Hannanum().pos(sentence)
+        elif mod == "Komoran":
+            words = konlpy.tag.Komoran().pos(sentence)
+        
         tokenized_result.append(words)
         
         # spacebar splits (data preparation for customized algorithm)
@@ -39,7 +48,7 @@ def mecab_tokenizing(document):
 def tokenizing(document_path):
     print ("tokenizing function")
     with open(document_path, 'r', encoding="utf-8") as doc:
-        real_doc, token, spacebar_splits, word_array= mecab_tokenizing(doc)
+        real_doc, token, spacebar_splits, word_array= konlpy_tokenizing(doc)
     return real_doc, token, spacebar_splits, word_array
     
 
