@@ -19,7 +19,7 @@ if __name__ == '__main_':
     print ("##########################################")
     
     #read_sample_data could be relpaced to data_helpers.py , to-be
-    sample_data, sample_data_path = preprocessing.read_sample_data()
+    #sample_data, sample_data_path = preprocessing.read_sample_data()
     pool = multiprocessing.Pool(processes = CPU_USAGE)
     pool.map(sub_process_preprocessing, range(0,CPU_USAGE))
     
