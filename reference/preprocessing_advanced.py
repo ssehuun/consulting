@@ -17,31 +17,25 @@ def re_substitute(sentence):
 
 
 def spacebar_based_grouping(sentence, spacebar_array):
+    #to-be
     group = []
-    return 
+    return
 
-
-def mecab_grammar_check(tokenized_grammar):
+def grammar_check(tokenized_grammar, mod='Mecab'):
     processed_grammar = list(tokenized_grammar)
     for token in tokenized_grammar:
-        if not ('NNG' in token[1] or 'NNP' in token[1]):
-            processed_grammar.remove(token)
+        if (mod == 'Mecab'):
+            if not('NNG' in token[1] or 'NNP' in token[1]):
+                processed_grammar.remove(token)
+        if (mod == 'Hannanum'):
+            if (not 'N' in token[1]):
+                processed_grammar.remove(token)
+        if (mod == 'Twitter'):
+            if not ('Noun' in token[1]):
+                processed_grammar.remove(token)
     return processed_grammar
 
 
-def hannanum_grammar_check(tokenized_grammar):
-    processed_grammar = list(tokenized_grammar)
-    for token in tokenized_grammar:
-        if not('N' in token[1]):
-            processed_grammar.remove(token)
-    return processed_grammar
-
-def twitter_grammar_check(tokenized_grammar):
-    processed_grammar = list(tokenized_grammar)
-    for token in tokenized_grammar:
-        if not ('Noun' in token[1]):
-            processed_grammar.remove(token)
-    return prcessed_grammar
             
 
 def konlpy_tokenizing(document, mod = 'Mecab'):
@@ -60,20 +54,22 @@ def konlpy_tokenizing(document, mod = 'Mecab'):
         if mod =="Mecab":
             words = konlpy.tag.Mecab(dicpath='/usr/lib/mecab/dic/mecab-ko-dic').pos(sentence)
             #grammar selection for Mecab
-            words = mecab_grammar_check(words)
+            #words = mecab_grammar_check(words)
         elif mod =="Twitter":
             words = konlpy.tag.Twitter().pos(sentence)
             #grammar selection for Twitter
-            
+            #words = twitter_grammar_check(words)
         elif mod =="Hannanum":
             words = konlpy.tag.Hannanum().pos(sentence)
             #grammar selection for Hannanum
-            words = hannanum_grammar_check(words)
+            #words = hannanum_grammar_check(words)
         elif mod == "Komoran":
             words = konlpy.tag.Komoran().pos(sentence)
         elif mod == "Kkma":
             words = konlpy.tag.Kkma().pos(sentence)
         
+        #grammar selection
+        words = grammar_check(words, mod)
         tokenized_result.append(words)
         
         
@@ -112,7 +108,7 @@ if __name__ == '__main__':
     print (sample_token)
     
     #sample for Hannannum
-    sample_doc, sample_token, _, _ = tokenizing(sample_data_path + '/' + sample_data[0], "Hannanum")
+    sample_doc, sample_token, _, _ = tokenizing(sample_data_path + '/' + sample_data[0], "Twitter")
     print ("####sample_doc####")
     print (sample_doc)
     print ()
