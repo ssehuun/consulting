@@ -1,5 +1,6 @@
 import konlpy
 import os
+import re
 
 DATA_PATH = 'sample_data'
 
