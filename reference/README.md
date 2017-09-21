@@ -98,3 +98,7 @@ https://github.com/joshemorris/word_embedding_tutorial/blob/master/ngram.py : py
 https://github.com/joshemorris/word_embedding_tutorial/blob/master/cbow.py : pytorch로 구현한 cbow
 
 
+@ 병렬처리 관련 자료
+
+http://yacht.yonsei.ac.kr/doku.php?id=yais:linux:language:python:parallel_multi
+
