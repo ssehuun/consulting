@@ -105,24 +105,23 @@ def token_grouping(tokenized_nouns):
                     
     return merged_nouns
 
+
+## grammar_check for konlpy tokenized document
+## processed_grammar_indentation : replace unnecessary grammar to None
 def grammar_check(tokenized_grammar, mod='Mecab'):
-    processed_grammar = list(tokenized_grammar)
     processed_grammar_indentation = list(tokenized_grammar)
     for token_index in range(len(tokenized_grammar)):
         if (mod == 'Mecab'):
             if not('NNG' in tokenized_grammar[token_index][1] or 'NNP' in tokenized_grammar[token_index][1]):
-                processed_grammar.remove(tokenized_grammar[token_index])
                 processed_grammar_indentation[token_index] = None
         if (mod == 'Hannanum'):
             if (not 'N' in tokenized_grammar[token_index][1]):
-                processed_grammar.remove(tokenized_grammar[token_index])
                 processed_grammar_indentation[token_index] = None
         if (mod == 'Twitter'):
             if not ('Noun' in tokenized_grammar[token_index][1] or 'Suffix' in tokenized_grammar[token_index][1] or 'Josa' in tokenized_grammar[token_index][1] or 'Adverb' in tokenized_grammar[token_index][1] \
                     or 'Adjective' in tokenized_grammar[token_index][1] or 'Verb' in tokenized_grammar[token_index][1] or 'Eomi' in tokenized_grammar[token_index][1] or 'PreEomi' in tokenized_grammar[token_index][1]):
-                processed_grammar.remove(tokenized_grammar[token_index])
                 processed_grammar_indentation[token_index] = None
-    return processed_grammar, processed_grammar_indentation
+    return processed_grammar_indentation
 
 
             
@@ -156,7 +155,7 @@ def konlpy_tokenizing(document, mod = 'Mecab'):
         
         #grammar selection
         tokenized_result.append(words)
-        words, indented_words = grammar_check(words, mod)
+        indented_words = grammar_check(words, mod)
         
         #result append
         
