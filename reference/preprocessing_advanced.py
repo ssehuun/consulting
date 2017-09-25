@@ -34,7 +34,6 @@ def noun_grouping(tokenized_nouns):
                 elif (merge_buffer[1] == ''):
                     merge_buffer[1] = str(noun[0])
             else :
-                print (noun)
                 if merge_buffer[0] != '' and merge_buffer[1] == '':
                     merged_nouns_sentence.append((merge_buffer[0], 'solo'))
                 merge_buffer = ['', '']
@@ -61,7 +60,7 @@ def grammar_check(tokenized_grammar, mod='Mecab'):
                 processed_grammar.remove(tokenized_grammar[token_index])
                 processed_grammar_indentation[token_index] = None
         if (mod == 'Twitter'):
-            if not ('Noun' in tokenized_grammar[token_index][1]):
+            if not ('Noun' in tokenized_grammar[token_index][1] or 'Suffix' in tokenized_grammar[token_index][1]):
                 processed_grammar.remove(tokenized_grammar[token_index])
                 processed_grammar_indentation[token_index] = None
     return processed_grammar, processed_grammar_indentation
