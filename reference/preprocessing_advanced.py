@@ -17,7 +17,7 @@ def re_substitute(sentence):
 
 
 def noun_grouping(tokenized_nouns):
-    merged_nouns []
+    merged_nouns =[]
     # for only Mecab & Twitter function
     for noun_by_sentence in tokenized_nouns:
         merged_nouns_sentence = []
@@ -26,19 +26,21 @@ def noun_grouping(tokenized_nouns):
         for noun in noun_by_sentence:
             if not noun == None:
                 if (merge_buffer[1] != '' and merge_buffer[0] != ''):
-                    merge_buffer[0] = merge_buffer[1]
-                    merge_buffer[1] = noun[0]
+                    merge_buffer[0] = str(merge_buffer[1])
+                    merge_buffer[1] = str(noun[0])
+                    merged_nouns_sentence.pop()
                 elif (merge_buffer[0] == ''):
-                    merge_buffer[0] = noun[0]
+                    merge_buffer[0] = str(noun[0])
                 elif (merge_buffer[1] == ''):
-                    merge_buffer[1] = noun[0]
+                    merge_buffer[1] = str(noun[0])
             else :
-                if merge_buffer[0] != '':
+                print (noun)
+                if merge_buffer[0] != '' and merge_buffer[1] == '':
                     merged_nouns_sentence.append((merge_buffer[0], 'solo'))
                 merge_buffer = ['', '']
                 update_buffer = ''
             if (merge_buffer[0] != '' and merge_buffer[1] != ''):
-                updata_buffer = merge_buffer[0] + merge_buffer[1]
+                update_buffer = merge_buffer[0] + merge_buffer[1]
                 merged_nouns_sentence.append((update_buffer, 'double'))
                 merged_nouns_sentence.append((merge_buffer[0], 'solo_1'))
                 merged_nouns_sentence.append((merge_buffer[1], 'solo_2'))
@@ -48,17 +50,21 @@ def noun_grouping(tokenized_nouns):
 
 def grammar_check(tokenized_grammar, mod='Mecab'):
     processed_grammar = list(tokenized_grammar)
-    for token in tokenized_grammar:
+    processed_grammar_indentation = list(tokenized_grammar)
+    for token_index in range(len(tokenized_grammar)):
         if (mod == 'Mecab'):
-            if not('NNG' in token[1] or 'NNP' in token[1]):
-                processed_grammar.remove(token)
+            if not('NNG' in tokenized_grammar[token_index][1] or 'NNP' in tokenized_grammar[token_index][1]):
+                processed_grammar.remove(tokenized_grammar[token_index])
+                processed_grammar_indentation[token_index] = None
         if (mod == 'Hannanum'):
-            if (not 'N' in token[1]):
-                processed_grammar.remove(token)
+            if (not 'N' in tokenized_grammar[token_index][1]):
+                processed_grammar.remove(tokenized_grammar[token_index])
+                processed_grammar_indentation[token_index] = None
         if (mod == 'Twitter'):
-            if not ('Noun' in token[1]):
-                processed_grammar.remove(token)
-    return processed_grammar
+            if not ('Noun' in tokenized_grammar[token_index][1]):
+                processed_grammar.remove(tokenized_grammar[token_index])
+                processed_grammar_indentation[token_index] = None
+    return processed_grammar, processed_grammar_indentation
 
 
             
@@ -66,6 +72,7 @@ def grammar_check(tokenized_grammar, mod='Mecab'):
 def konlpy_tokenizing(document, mod = 'Mecab'):
     ##DOC FINAL RESULT INITIALIZATION
     tokenized_result = []
+    noun_tokenized_result = []
     real_document = []
     
     for sentence in document:
@@ -88,22 +95,23 @@ def konlpy_tokenizing(document, mod = 'Mecab'):
             words = konlpy.tag.Kkma().pos(sentence)
         
         #grammar selection
-        words = grammar_check(words, mod)
+        words, noun_words = grammar_check(words, mod)
         
         #result append
         tokenized_result.append(words)
+        noun_tokenized_result.append(noun_words)
         
         
         # spacebar splits (data preparation for customized algorithm)
-
-    return real_document, tokenized_result
+    processed_noun = noun_grouping(noun_tokenized_result)
+    return real_document, tokenized_result, processed_noun
         
 
 def tokenizing(document_path, analyzer = "Mecab"):
     print ("tokenizing function")
     with open(document_path, 'r', encoding="utf-8") as doc:
-        real_doc, token= konlpy_tokenizing(doc, analyzer)
-    return real_doc, token
+        real_doc, token, noun_token= konlpy_tokenizing(doc, analyzer)
+    return real_doc, token, noun_token
     
 
 if __name__ == '__main__':
@@ -120,7 +128,7 @@ if __name__ == '__main__':
     
     #####sample for just one document
     #sample for Mecab
-    sample_doc, sample_token = tokenizing(sample_data_path + '/' + sample_data[0], "Mecab")
+    sample_doc, sample_token, noun_token = tokenizing(sample_data_path + '/' + sample_data[0], "Mecab")
     print ("####sample_doc####")
     print (sample_doc)
     print ()
@@ -128,9 +136,12 @@ if __name__ == '__main__':
     print (sample_token)
     
     #sample for Hannannum
-    sample_doc, sample_token = tokenizing(sample_data_path + '/' + sample_data[0], "Twitter")
+    sample_doc, sample_token, noun_token = tokenizing(sample_data_path + '/' + sample_data[0], "Twitter")
     print ("####sample_doc####")
     print (sample_doc)
     print ()
     print ("####sample_token####")
     print (sample_token)
+    print ()
+    print ("####noun_token####")
+    print (noun_token)
