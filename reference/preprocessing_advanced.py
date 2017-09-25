@@ -16,12 +16,35 @@ def re_substitute(sentence):
     return sentence
 
 
-def spacebar_based_grouping(sentence):
+def noun_grouping(tokenized_nouns):
+    merged_nouns []
     # for only Mecab & Twitter function
-    group = []
-    spacebar_splits = [z for z in sentence.split(' ') if z]
-    spacebar_array = [0]*len(spacebar_splits)
-    return
+    for noun_by_sentence in tokenized_nouns:
+        merged_nouns_sentence = []
+        merge_buffer = ['','']
+        update_buffer = ''
+        for noun in noun_by_sentence:
+            if not noun == None:
+                if (merge_buffer[1] != '' and merge_buffer[0] != ''):
+                    merge_buffer[0] = merge_buffer[1]
+                    merge_buffer[1] = noun[0]
+                elif (merge_buffer[0] == ''):
+                    merge_buffer[0] = noun[0]
+                elif (merge_buffer[1] == ''):
+                    merge_buffer[1] = noun[0]
+            else :
+                if merge_buffer[0] != '':
+                    merged_nouns_sentence.append((merge_buffer[0], 'solo'))
+                merge_buffer = ['', '']
+                update_buffer = ''
+            if (merge_buffer[0] != '' and merge_buffer[1] != ''):
+                updata_buffer = merge_buffer[0] + merge_buffer[1]
+                merged_nouns_sentence.append((update_buffer, 'double'))
+                merged_nouns_sentence.append((merge_buffer[0], 'solo_1'))
+                merged_nouns_sentence.append((merge_buffer[1], 'solo_2'))
+        merged_nouns.append(merged_nouns_sentence)
+                    
+    return merged_nouns
 
 def grammar_check(tokenized_grammar, mod='Mecab'):
     processed_grammar = list(tokenized_grammar)
