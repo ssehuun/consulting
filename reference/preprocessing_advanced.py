@@ -16,9 +16,11 @@ def re_substitute(sentence):
     return sentence
 
 
-def spacebar_based_grouping(sentence, spacebar_array):
-    #to-be
+def spacebar_based_grouping(sentence):
+    # for only Mecab & Twitter function
     group = []
+    spacebar_splits = [z for z in sentence.split(' ') if z]
+    spacebar_array = [0]*len(spacebar_splits)
     return
 
 def grammar_check(tokenized_grammar, mod='Mecab'):
@@ -70,16 +72,15 @@ def konlpy_tokenizing(document, mod = 'Mecab'):
         
         
         # spacebar splits (data preparation for customized algorithm)
-        spacebar_splits = [z for z in sentence.split(' ') if z]
-        spacebar_array = [0]*len(spacebar_splits)
-    return real_document, tokenized_result, spacebar_splits, spacebar_array 
+
+    return real_document, tokenized_result
         
 
 def tokenizing(document_path, analyzer = "Mecab"):
     print ("tokenizing function")
     with open(document_path, 'r', encoding="utf-8") as doc:
-        real_doc, token, spacebar_splits, word_array= konlpy_tokenizing(doc, analyzer)
-    return real_doc, token, spacebar_splits, word_array
+        real_doc, token= konlpy_tokenizing(doc, analyzer)
+    return real_doc, token
     
 
 if __name__ == '__main__':
@@ -96,7 +97,7 @@ if __name__ == '__main__':
     
     #####sample for just one document
     #sample for Mecab
-    sample_doc, sample_token, _, _ = tokenizing(sample_data_path + '/' + sample_data[0], "Mecab")
+    sample_doc, sample_token = tokenizing(sample_data_path + '/' + sample_data[0], "Mecab")
     print ("####sample_doc####")
     print (sample_doc)
     print ()
@@ -104,7 +105,7 @@ if __name__ == '__main__':
     print (sample_token)
     
     #sample for Hannannum
-    sample_doc, sample_token, _, _ = tokenizing(sample_data_path + '/' + sample_data[0], "Twitter")
+    sample_doc, sample_token = tokenizing(sample_data_path + '/' + sample_data[0], "Twitter")
     print ("####sample_doc####")
     print (sample_doc)
     print ()
