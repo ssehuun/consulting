@@ -16,14 +16,46 @@ def re_substitute(sentence):
     return sentence
 
 
-def noun_grouping(tokenized_nouns):
+def token_grouping(tokenized_nouns):
     merged_nouns =[]
     # for only Mecab & Twitter function
     for noun_by_sentence in tokenized_nouns:
         merged_nouns_sentence = []
         merge_buffer = ['','']
         update_buffer = ''
+        
+        ## initialization for Twitter_verb
+        Twitter_verb = False
+        verb_update_buffer = ''
+        
         for noun in noun_by_sentence:
+            ## only for Twitter ##
+            
+            if not noun == None and noun[1] == 'Josa':
+                continue
+            
+                
+            #### 'Adjective or Verb merging ###
+            if not noun == None and (noun[1] == 'Adjective' or noun[1] == 'Verb'):
+                Twitter_verb = True
+                verb_update_buffer = noun[0]
+                continue
+            
+            if not noun == None and (noun[1] =='Eomi' or noun[1] =='PreEomi'):
+                if (Twitter_verb == True):
+                    verb_update_buffer += noun[0]
+                continue
+                
+            if Twitter_verb == True:
+                merged_nouns_sentence.append((verb_update_buffer, 'verb_adjective'))
+                verb_update_buffer = ''
+                Twitter_verb =False
+                
+                
+            ## only for Twitter ends ##    
+                
+                
+            ### 'NOUN' merging ###
             if not noun == None:
                 if (merge_buffer[1] != '' and merge_buffer[0] != ''):
                     merge_buffer[0] = str(merge_buffer[1])
@@ -43,6 +75,8 @@ def noun_grouping(tokenized_nouns):
                 merged_nouns_sentence.append((update_buffer, 'double'))
                 merged_nouns_sentence.append((merge_buffer[0], 'solo_1'))
                 merged_nouns_sentence.append((merge_buffer[1], 'solo_2'))
+        if (verb_update_buffer != ''):
+            merged_nouns_sentence.append((verb_update_buffer, 'verb_adjective'))
         merged_nouns.append(merged_nouns_sentence)
                     
     return merged_nouns
@@ -60,7 +94,8 @@ def grammar_check(tokenized_grammar, mod='Mecab'):
                 processed_grammar.remove(tokenized_grammar[token_index])
                 processed_grammar_indentation[token_index] = None
         if (mod == 'Twitter'):
-            if not ('Noun' in tokenized_grammar[token_index][1] or 'Suffix' in tokenized_grammar[token_index][1]):
+            if not ('Noun' in tokenized_grammar[token_index][1] or 'Suffix' in tokenized_grammar[token_index][1] or 'Josa' in tokenized_grammar[token_index][1] or 'Adverb' in tokenized_grammar[token_index][1] \
+                    or 'Adjective' in tokenized_grammar[token_index][1] or 'Verb' in tokenized_grammar[token_index][1] or 'Eomi' in tokenized_grammar[token_index][1] or 'PreEomi' in tokenized_grammar[token_index][1]):
                 processed_grammar.remove(tokenized_grammar[token_index])
                 processed_grammar_indentation[token_index] = None
     return processed_grammar, processed_grammar_indentation
@@ -94,15 +129,16 @@ def konlpy_tokenizing(document, mod = 'Mecab'):
             words = konlpy.tag.Kkma().pos(sentence)
         
         #grammar selection
+        tokenized_result.append(words)
         words, noun_words = grammar_check(words, mod)
         
         #result append
-        tokenized_result.append(words)
+        
         noun_tokenized_result.append(noun_words)
         
         
         # spacebar splits (data preparation for customized algorithm)
-    processed_noun = noun_grouping(noun_tokenized_result)
+    processed_noun = token_grouping(noun_tokenized_result)
     return real_document, tokenized_result, processed_noun
         
 
