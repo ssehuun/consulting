@@ -2,19 +2,26 @@ import konlpy
 import os
 import re
 
+## data directory path starting from this directory
 DATA_PATH = 'sample_data'
 
 
+
+## reading and testing sample data
 def read_sample_data():
     sample_data_path = os.getcwd()
     sample_data_path = sample_data_path + '/' + DATA_PATH        
     sample_data = os.listdir(sample_data_path)
     return sample_data, sample_data_path
 
+
+## you can substitute specific string by regular expression 
 def re_substitute(sentence):
     sentence = re.sub(r"[0-9]+"," ", sentence)
     return sentence
 
+
+## you can substitute specific token by inserting your own token by replacing or adding into 'something'
 def token_substitute(tokenized_doc):
     processed_doc = list(tokenized_doc)
     for tokenized_sentence in tokenized_doc:
@@ -25,6 +32,9 @@ def token_substitute(tokenized_doc):
                 processed_doc.remove(token)
     return processed_doc
 
+
+##re-group the token which is too narrowly divided
+## this function is mainly focused on Twitter analyzer
 def token_grouping(tokenized_nouns):
     merged_nouns =[]
     # for only Mecab & Twitter function
