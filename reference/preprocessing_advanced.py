@@ -126,7 +126,9 @@ def grammar_check(tokenized_grammar, mod='Mecab'):
 
 
             
-
+## tokenizing and analyzing received document by specific method
+## such as konlpy , grammar_check(tokenized_grammar, mod), token_grouping(tokenized_nouns), token_substitute(tokenized_doc), re_substitute(sentence)
+## return real_document, tokenized_result, processed_result
 def konlpy_tokenizing(document, mod = 'Mecab'):
     ##DOC FINAL RESULT INITIALIZATION
     tokenized_result = []
@@ -161,12 +163,14 @@ def konlpy_tokenizing(document, mod = 'Mecab'):
         noun_tokenized_result.append(indented_words)
         
         
-        # spacebar splits (data preparation for customized algorithm)
-    preprocessed_noun = token_substitute(noun_tokenized_result)
-    processed_noun = token_grouping(preprocessed_noun)
-    return real_document, tokenized_result, processed_noun
+    preprocessed_result = token_substitute(noun_tokenized_result)
+    processed_result = token_grouping(preprocessed_result)
+    return real_document, tokenized_result, processed_result
         
 
+    
+## need to be revised ## (original purpose : run all of document in document path)
+## now : run/anlayze specific document passed by 'document_path'
 def tokenizing(document_path, analyzer = "Mecab"):
     print ("tokenizing function")
     with open(document_path, 'r', encoding="utf-8") as doc:
@@ -174,6 +178,7 @@ def tokenizing(document_path, analyzer = "Mecab"):
     return real_doc, token, noun_token
     
 
+### if__name__ == '__main__' is only for running script directly ex) python3 preprocessing_advanced.py
 if __name__ == '__main__':
     print ("this is tool for debugging preprocessing.py code")
     print ()
