@@ -15,6 +15,15 @@ def re_substitute(sentence):
     sentence = re.sub(r"[0-9]+"," ", sentence)
     return sentence
 
+def token_substitute(tokenized_doc):
+    processed_doc = list(tokenized_doc)
+    for tokenized_sentence in tokenized_doc:
+        for token in tokenized_sentence:
+            if token == None:
+                continue
+            if ('something' in token[0]):
+                processed_doc.remove(token)
+    return processed_doc
 
 def token_grouping(tokenized_nouns):
     merged_nouns =[]
@@ -34,9 +43,23 @@ def token_grouping(tokenized_nouns):
             if not noun == None and noun[1] == 'Josa':
                 continue
             
-                
+            ### add solo Adverb ###
+            if not noun == None and noun[1] =='Adverb':
+                merged_nouns_sentence.append(noun)
+                continue
+            
             #### 'Adjective or Verb merging ###
+            
             if not noun == None and (noun[1] == 'Adjective' or noun[1] == 'Verb'):
+                if (Twitter_verb == True):
+                    merged_nouns_sentence.append((verb_update_buffer, 'verb_adjective'))
+                if (merge_buffer[0] != '' and merge_buffer[1] == ''):
+                    merged_nouns_sentence.append((merge_buffer[0], 'solo'))
+                    merge_buffer = ['','']
+                    update_buffer = []
+                if (merge_buffer[0] != '' and merge_buffer[1] != ''):
+                    merge_buffer = ['','']                    
+                    update_buffer = []
                 Twitter_verb = True
                 verb_update_buffer = noun[0]
                 continue
@@ -50,6 +73,7 @@ def token_grouping(tokenized_nouns):
                 merged_nouns_sentence.append((verb_update_buffer, 'verb_adjective'))
                 verb_update_buffer = ''
                 Twitter_verb =False
+                
                 
                 
             ## only for Twitter ends ##    
@@ -130,15 +154,16 @@ def konlpy_tokenizing(document, mod = 'Mecab'):
         
         #grammar selection
         tokenized_result.append(words)
-        words, noun_words = grammar_check(words, mod)
+        words, indented_words = grammar_check(words, mod)
         
         #result append
         
-        noun_tokenized_result.append(noun_words)
+        noun_tokenized_result.append(indented_words)
         
         
         # spacebar splits (data preparation for customized algorithm)
-    processed_noun = token_grouping(noun_tokenized_result)
+    preprocessed_noun = token_substitute(noun_tokenized_result)
+    processed_noun = token_grouping(preprocessed_noun)
     return real_document, tokenized_result, processed_noun
         
 
